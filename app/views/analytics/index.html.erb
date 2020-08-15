@@ -1,0 +1,12 @@
+<h4>Analytics</h4>
+
+<% @shorten_urls.each do |shorten_url| %>
+<hr>
+<p><b>localhost:3000/<%= shorten_url.original_url %><b></p>
+<b>localhost:3000/<%= shorten_url.short_url %><b>
+<br>
+<br>
+
+Total clicks: <%= shorten_url.analytics.count %><br>
+Top countries: <%= shorten_url.analytics.pluck(:country).join(",") %>
+<% end %>

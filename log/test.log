@@ -1,0 +1,122 @@
+  [1m[35m (509.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "url_shortener_test"[0m
+  [1m[35m (1489.5ms)[0m  [1m[35mCREATE DATABASE "url_shortener_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "analytics" CASCADE[0m
+  [1m[35m (196.0ms)[0m  [1m[35mCREATE TABLE "analytics" ("id" bigserial primary key, "ip_address" float, "country" character varying, "shorten_url_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (138.0ms)[0m  [1m[35mCREATE  INDEX  "index_analytics_on_shorten_url_id" ON "analytics"  ("shorten_url_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "shorten_urls" CASCADE[0m
+  [1m[35m (249.7ms)[0m  [1m[35mCREATE TABLE "shorten_urls" ("id" bigserial primary key, "original_url" character varying, "short_url" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (191.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (48.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200815141453)[0m
+  [1m[35m (43.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20200815141145);
+
+[0m
+  [1m[35m (180.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "test"], ["created_at", "2020-08-15 18:20:30.480730"], ["updated_at", "2020-08-15 18:20:30.480730"]]
+  [1m[35m (61.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "9566445bcc897e4cd3473b59c557e9534719752b"], ["created_at", "2020-08-15 18:20:30.552347"], ["updated_at", "2020-08-15 18:20:30.552347"]]
+  [1m[35m (32.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mShortenUrl Load (0.4ms)[0m  [1m[34mSELECT "shorten_urls".* FROM "shorten_urls" WHERE "shorten_urls"."short_url" = $1[0m  [["short_url", "alwvy"]]
+  [1m[36mShortenUrl Create (0.4ms)[0m  [1m[32mINSERT INTO "shorten_urls" ("original_url", "short_url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["original_url", "test/hifive/test"], ["short_url", "alwvy"], ["created_at", "2020-08-15 18:24:05.364241"], ["updated_at", "2020-08-15 18:24:05.364241"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/shorten_urls" for 127.0.0.1 at 2020-08-15 23:54:05 +0530
+Processing by ShortenUrlsController#index as HTML
+  Rendering shorten_urls/index.html.erb within layouts/application
+  [1m[36mShortenUrl Load (0.3ms)[0m  [1m[34mSELECT "shorten_urls".* FROM "shorten_urls"[0m
+  Rendered shorten_urls/index.html.erb within layouts/application (Duration: 2.2ms | Allocations: 1083)
+Completed 200 OK in 4002ms (Views: 4000.9ms | ActiveRecord: 0.3ms | Allocations: 77118)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mShortenUrl Load (0.2ms)[0m  [1m[34mSELECT "shorten_urls".* FROM "shorten_urls" WHERE "shorten_urls"."short_url" = $1[0m  [["short_url", "rfcel"]]
+  [1m[36mShortenUrl Create (0.3ms)[0m  [1m[32mINSERT INTO "shorten_urls" ("original_url", "short_url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["original_url", "test/hifive/test"], ["short_url", "rfcel"], ["created_at", "2020-08-15 18:24:45.321405"], ["updated_at", "2020-08-15 18:24:45.321405"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/shorten_urls" for 127.0.0.1 at 2020-08-15 23:54:45 +0530
+Processing by ShortenUrlsController#index as HTML
+  Rendering shorten_urls/index.html.erb within layouts/application
+  [1m[36mShortenUrl Load (0.3ms)[0m  [1m[34mSELECT "shorten_urls".* FROM "shorten_urls"[0m
+  Rendered shorten_urls/index.html.erb within layouts/application (Duration: 2.0ms | Allocations: 1085)
+Completed 200 OK in 3669ms (Views: 3668.0ms | ActiveRecord: 0.3ms | Allocations: 34577)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mShortenUrl Load (0.3ms)[0m  [1m[34mSELECT "shorten_urls".* FROM "shorten_urls" WHERE "shorten_urls"."short_url" = $1[0m  [["short_url", "9x70s"]]
+  [1m[36mShortenUrl Create (0.3ms)[0m  [1m[32mINSERT INTO "shorten_urls" ("original_url", "short_url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["original_url", "test/hifive/test"], ["short_url", "9x70s"], ["created_at", "2020-08-15 18:25:26.084904"], ["updated_at", "2020-08-15 18:25:26.084904"]]
+  [1m[35m (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/shorten_urls" for 127.0.0.1 at 2020-08-15 23:55:26 +0530
+Processing by ShortenUrlsController#index as HTML
+  Rendering shorten_urls/index.html.erb within layouts/application
+  [1m[36mShortenUrl Load (0.3ms)[0m  [1m[34mSELECT "shorten_urls".* FROM "shorten_urls"[0m
+  Rendered shorten_urls/index.html.erb within layouts/application (Duration: 2.0ms | Allocations: 1091)
+Completed 200 OK in 3849ms (Views: 3848.3ms | ActiveRecord: 0.3ms | Allocations: 35311)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+Started GET "/analytics" for 127.0.0.1 at 2020-08-15 23:56:33 +0530
+Processing by AnalyticsController#index as HTML
+  Rendering analytics/index.html.erb within layouts/application
+  [1m[36mShortenUrl Load (0.4ms)[0m  [1m[34mSELECT "shorten_urls".* FROM "shorten_urls"[0m
+  Rendered analytics/index.html.erb within layouts/application (Duration: 2.7ms | Allocations: 1147)
+Completed 200 OK in 3698ms (Views: 3694.4ms | ActiveRecord: 1.3ms | Allocations: 36653)
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mShortenUrl Load (0.1ms)[0m  [1m[34mSELECT "shorten_urls".* FROM "shorten_urls" WHERE "shorten_urls"."short_url" = $1[0m  [["short_url", "i2u41"]]
+  [1m[36mShortenUrl Create (0.3ms)[0m  [1m[32mINSERT INTO "shorten_urls" ("original_url", "short_url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["original_url", "test/hifive/test"], ["short_url", "i2u41"], ["created_at", "2020-08-15 18:26:37.283152"], ["updated_at", "2020-08-15 18:26:37.283152"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/shorten_urls" for 127.0.0.1 at 2020-08-15 23:56:37 +0530
+Processing by ShortenUrlsController#index as HTML
+  Rendering shorten_urls/index.html.erb within layouts/application
+  [1m[36mShortenUrl Load (0.3ms)[0m  [1m[34mSELECT "shorten_urls".* FROM "shorten_urls"[0m
+  Rendered shorten_urls/index.html.erb within layouts/application (Duration: 1.6ms | Allocations: 965)
+Completed 200 OK in 6ms (Views: 5.7ms | ActiveRecord: 0.3ms | Allocations: 7608)
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+Started GET "/analytics" for 127.0.0.1 at 2020-08-15 23:56:41 +0530
+Processing by AnalyticsController#index as HTML
+  Rendering analytics/index.html.erb within layouts/application
+  [1m[36mShortenUrl Load (0.3ms)[0m  [1m[34mSELECT "shorten_urls".* FROM "shorten_urls"[0m
+  Rendered analytics/index.html.erb within layouts/application (Duration: 1.4ms | Allocations: 732)
+Completed 200 OK in 3951ms (Views: 3949.4ms | ActiveRecord: 0.3ms | Allocations: 35052)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mShortenUrl Load (0.2ms)[0m  [1m[34mSELECT "shorten_urls".* FROM "shorten_urls" WHERE "shorten_urls"."short_url" = $1[0m  [["short_url", "at52j"]]
+  [1m[36mShortenUrl Create (0.3ms)[0m  [1m[32mINSERT INTO "shorten_urls" ("original_url", "short_url", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["original_url", "test/hifive/test"], ["short_url", "at52j"], ["created_at", "2020-08-15 18:26:45.096727"], ["updated_at", "2020-08-15 18:26:45.096727"]]
+  [1m[35m (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/shorten_urls" for 127.0.0.1 at 2020-08-15 23:56:45 +0530
+Processing by ShortenUrlsController#index as HTML
+  Rendering shorten_urls/index.html.erb within layouts/application
+  [1m[36mShortenUrl Load (0.2ms)[0m  [1m[34mSELECT "shorten_urls".* FROM "shorten_urls"[0m
+  Rendered shorten_urls/index.html.erb within layouts/application (Duration: 1.5ms | Allocations: 962)
+Completed 200 OK in 6ms (Views: 5.6ms | ActiveRecord: 0.2ms | Allocations: 7605)
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m

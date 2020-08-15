@@ -1,0 +1,51 @@
+<h1>Welcome to short.com</h1>
+<br>
+
+<h4>Please enter your URL here:<h4>
+<%= form_for @shorten_url do |f| %>	
+<%= f.text_field :original_url, size: 30 %>&nbsp;<%= f.submit 'SHORTEN', id: 'submit' %>
+<% end %>
+<br>
+
+<div class = "display-text display-none"> 
+	Here's your short URL! 
+	<br>
+	<p class = 'display-url'></p>
+</div>
+
+<div class = 'error display-none text-danger'> </div>
+
+<br>
+<% @existing_urls.each do |url| %>
+<div>
+<a href = "<%= url.original_url %>" class = "send_analytics" id = "<%= url.id %>" ><%= url.short_url %></a>
+</div>
+<% end %>
+
+
+<br><br><br>
+<%= link_to "Analytics", analytics_path %>
+
+
+<script>
+$(document).ready(function(){
+	$("#new_shorten_url").submit(function(e){
+		e.preventDefault();
+		 dataToSubmit = $(this).serialize()
+		 $.post($(this).attr('action'), dataToSubmit);
+	});
+
+	$("#shorten_url_original_url").keyup(function(e){
+		$('#submit').removeAttr("disabled");
+	});
+
+	$(".send_analytics").click(function(e){
+		e.preventDefault();
+		id = $(this).attr('id')
+		path = "/shorten_urls/" + id + "/set_analytics"
+		$.get(path, { href: $(this).attr('href') } );
+		
+	});
+
+})
+</script>

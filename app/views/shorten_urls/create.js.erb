@@ -1,0 +1,7 @@
+<% if @error %>
+ $(".error").css('display', 'block').html("<%= @message %>")
+<% else %>
+$(".error").hide();
+$('.display-text').show();
+$('.display-url').html('<a href = <%= @shorten_url.original_url %>> localhost:3000/<%= @shorten_url.short_url %> </a>');
+<% end %>
